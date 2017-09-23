@@ -63,6 +63,8 @@ int main(int argc, char *argv[]) {
   char *password = argc>2 ? argv[2] : NULL;
 
   row_t row;
+
+  double avg_hashrate = 0.0;
   
   while ((retval = getline(&line,&len,fp)) != -1) {
 
@@ -76,11 +78,7 @@ int main(int argc, char *argv[]) {
 
 	if (retval == 7) {
 
-	  if (row.hashrate < 20.0) {
-
-	    run_reboot(ssh_host);
-	    
-	  }
+	  avg_hashrate += row.hashrate;
 	  
 	}
 	
@@ -105,7 +103,9 @@ int main(int argc, char *argv[]) {
 
   }
 
-  if (powhashno < 2) {
+  avg_hashrate /= powhashno;
+  
+  if (powhashno < 2 || avg_hashrate < 20.0) {
 
     run_reboot(ssh_host);
     
