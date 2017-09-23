@@ -65,6 +65,8 @@ int main(int argc, char *argv[]) {
   row_t row;
 
   double avg_hashrate = 0.0;
+
+  long int num_hashrates = 0;
   
   while ((retval = getline(&line,&len,fp)) != -1) {
 
@@ -79,6 +81,7 @@ int main(int argc, char *argv[]) {
 	if (retval == 7) {
 
 	  avg_hashrate += row.hashrate;
+	  num_hashrates++;
 	  
 	}
 	
@@ -103,7 +106,7 @@ int main(int argc, char *argv[]) {
 
   }
 
-  avg_hashrate /= powhashno;
+  avg_hashrate /= num_hashrates;
   
   if (powhashno < 2 || avg_hashrate < 20.0) {
 
