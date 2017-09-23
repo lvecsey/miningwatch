@@ -98,15 +98,17 @@ int main(int argc, char *argv[]) {
   }
 
   fclose(stdin);
+
+  avg_hashrate /= num_hashrates;
   
   if (debug) {
 
     fprintf(stderr, "powhashno=%ld\n", powhashno);
     fprintf(stderr, "lineno=%ld\n", lineno);    
-
+    fprintf(stderr, "avg_hashrate=%.02f\n", avg_hashrate);
+    fprintf(stderr, "num_hashrates=%ld\n", num_hashrates);
+    
   }
-
-  avg_hashrate /= num_hashrates;
   
   if (powhashno < 2 || avg_hashrate < 20.0) {
 
